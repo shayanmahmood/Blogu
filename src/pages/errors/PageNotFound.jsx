@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom';
-import '../css/pageNotFound.css'
+import '../../css/pageNotFound.css'
 
 // font-family: "Barlow", sans-serif;
 

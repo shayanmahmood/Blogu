@@ -1,22 +1,9 @@
-import { Link, useSearchParams } from "react-router-dom";
 // import BlogsCard from "../../components/ui/BlogsCard";
-import { categories, capitalizeFirstLetter } from "../lib/categories";
-import { BiSearchAlt } from "react-icons/bi";
-import Footer from "../components/Footer";
-import { useRef, useState } from "react";
-import { motion } from "framer-motion";
+import Footer from "../../components/Footer";
 // import { Input } from "@/components/ui/input";
 // import { Skeleton } from "@/components/ui/skeleton";
 
 const Home = () => {
-    const [searchParams] = useSearchParams();
-    const category = searchParams.get("category") || "all";
-    const search = useRef("");
-    const [searchRes, setSearchRes] = useState([]);
-    const [isFocused, setIsFocused] = useState(false);
-
-
-
     return (
         <div className="flex flex-col items-center justify-center">
             <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem] opacity-[0.05]" />
@@ -32,7 +19,7 @@ const Home = () => {
                 </p>
             </div>
             <div className="space-y-10 w-[80%] md:w-[50rem] xl:w-[80rem]" id="blogs">
-                <h1 className="text-3xl sm:text-4xl">Categories</h1>
+                <h1 className="text-3xl sm:text-4xl">Latest Blogs</h1>
 
             </div>
             {/* <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 justify-items-center mt-20">

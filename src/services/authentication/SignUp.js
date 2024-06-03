@@ -2,7 +2,6 @@ import { db } from '../../firebase.js'
 import { createUserWithEmailAndPassword, getAuth, updateProfile } from 'firebase/auth'
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore'
 export async function SignUp({ email, password, firstname }) {
-    console.log({ email, password, firstname })
     const auth = getAuth() //*getting Auth
     const userCredentials = await createUserWithEmailAndPassword(auth, email, password)
 

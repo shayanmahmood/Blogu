@@ -6,13 +6,14 @@ import { useForm } from "react-hook-form";
 import useSignUp from "../../features/authentication/useSignUp";
 
 function SignUp() {
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, reset } = useForm()
     const { SignUp, isLoading } = useSignUp()
     const inputStyle = "h-12 text-md";
 
     function onSubmit({ email, password, firstname }) {
-        SignUp({ email, password, firstname })
-        console.log('register')
+        SignUp({ email, password, firstname }, {
+            onSettled: () => reset()
+        })
     }
     return (
         <div className="flex items-center justify-center h-lvh">
@@ -74,9 +75,9 @@ function SignUp() {
                     />
                     <Button
                         type="submit"
-                        className="w-full h-12 text-md gap-2">
-                        Login
+                        className={`w-full h-12 text-md gap-2 ${isLoading && `bg-gray-500`}`}>
                         <MdOutlineLogin />
+                        Create Account {isLoading && <span className="loader"></span>}
                     </Button>
                     <div className="w-full">
                         <Link

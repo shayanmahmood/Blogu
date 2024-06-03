@@ -1,17 +1,16 @@
 import { useMutation } from "@tanstack/react-query"
-import { SignUp as SignUpApi } from "../../services/authentication/SignUp"
+import { LogOut as ApiLogOut } from "../../services/authentication/ApiLogOut"
 import toast from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
 
-export function useSignUp() {
+function useLogOut() {
     const navigate = useNavigate()
-    
-    const { mutate: SignUp, isLoading } = useMutation({
-        mutationFn: SignUpApi,
+    const { isLoading, mutate: LogOut } = useMutation({
+        mutationFn: ApiLogOut,
         onSuccess: () => {
-            toast('User Successfully Registered',
+            toast('User Successfully Loged Out',
                 {
-                    icon: '👏',
+                    icon: '🎉',
                     style: {
                         borderRadius: '10px',
                         background: '#333',
@@ -19,15 +18,15 @@ export function useSignUp() {
                     },
                 }
             )
-            navigate('/home')
+            navigate('/login')
         },
         onError: (error) => {
             console.log(error)
-            toast.error("SomeThing Went Wrong!")
+            toast.error("User Cannot be Loged Out")
         }
     })
 
-    return { SignUp, isLoading }
+    return { isLoading, LogOut }
 }
 
-export default useSignUp
+export default useLogOut

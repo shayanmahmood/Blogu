@@ -1,21 +1,28 @@
+//* references
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import AppLayout from './pages/AppLayout'
-import './index.css'
-import Home from './pages/Home/Home'
-import Blog from './pages/blog/Blog'
-import Creators from './pages/blog/Creators'
-import CreateBlog from './pages/blog/CreateBlog'
-import Profile from './pages/authentication/Profile'
-import Login from './pages/authentication/Login'
-import SignUp from './pages/authentication/SignUp'
-import PageNotFound from './pages/errors/PageNotFound'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Toaster } from 'react-hot-toast'
+
+import './index.css'
+
 import ProtectedRoutes from './pages/routes/ProtectedRoutes'
+import AppLayout from './pages/AppLayout'
+import Home from './pages/Home/Home'
+import Creators from './pages/blog/Creators'
+import CreateBlog from './pages/blog/CreateBlog'
+import Profile from './pages/authentication/Profile'
+import Blog from './pages/blog/Blog'
 import BlogLayout from './pages/blog/BlogLayout'
 import BlogDetails from './pages/blog/BlogDetails'
+import PageNotFound from './pages/errors/PageNotFound'
+
+import Login from './pages/authentication/Login'
+import SignUp from './pages/authentication/SignUp'
+
+
 function App() {
+  //^ setting QueryClient for react-query
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -23,6 +30,8 @@ function App() {
       }
     }
   })
+
+
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
@@ -36,6 +45,7 @@ function App() {
             <Route path='blogs' element={<Blog />} />
             <Route path='blog' element={<BlogLayout />}>
               <Route path='/blog/:blogid' element={<BlogDetails />} />
+              <Route path='/blog/create-blog' element={<CreateBlog />} />
             </Route>
             <Route path='users' element={<Creators />} />
             <Route path='profile' element={<Profile />} />
@@ -45,6 +55,7 @@ function App() {
           <Route path='*' element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
+
       <Toaster
         position="bottom-left"
         gutter={12}

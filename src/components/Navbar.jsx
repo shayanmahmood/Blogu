@@ -4,6 +4,7 @@ import { RiMenu4Fill } from "react-icons/ri";
 import { MdClose } from "react-icons/md";
 import { GradientButton } from "./ui/GradientButton";
 import { useAuthRoute } from "../features/authentication/useAuthRoute";
+
 import useLogOut from "../features/authentication/useLogOut";
 import Spinner from "./Spinner";
 
@@ -47,7 +48,7 @@ const Navbar = () => {
                             <Link to="/users">Creators</Link>
                         </li>
                         <li className={linkStyle}>
-                            <Link to="/blogs/create-blog">Create</Link>
+                            <Link to="/blog/create-blog">Create</Link>
                         </li>
                         <li className={linkStyle}>
                             <Link to='/profile'>

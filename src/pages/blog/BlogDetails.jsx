@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
@@ -12,8 +12,10 @@ import { Helmet } from "react-helmet";
 import AlertButton from "@/components/ui/AlertButton";
 import useGetBlog from "../../features/blog/hook/useGetBlog";
 import { getAuth } from "firebase/auth";
-import useAddComments from "../../features/authentication/useAddComments";
-import useDeleteComments from "../../features/authentication/useDeleteComment";
+import useAddComments from "../../features/blog/hook/comments/useAddComments";
+import useDeleteComments from "../../features/blog/hook/comments/useDeleteComment";
+import useDeleteBlog from "../../features/blog/hook/useDeleteBlog";
+import Spinner from "../../components/Spinner";
 
 
 const BlogDetails = () => {
@@ -24,6 +26,7 @@ const BlogDetails = () => {
   const params = useParams()
   const { isLoading: isCommiting, addComment } = useAddComments()
   const { isLoading: isDeleting, deleteComment } = useDeleteComments()
+  const { isLoading: isDeletingBlog, deleteBlog: deleteBlogi } = useDeleteBlog()
   const { scrollYProgress } = useScroll();
 
   function giveMeDate(timestamp, isMore) {
@@ -70,11 +73,17 @@ const BlogDetails = () => {
     })
   }
 
+  function deleteBlog() {
+    const id = params.blogid
+    deleteBlogi(id)
+  }
+
 
   const created = giveMeDate(blog?.created_at?.seconds)
 
-  // const date = JSON.stringify(cleanDate(blog?.created_at?.seconds))
-  // console.log(date)
+  if(isDeletingBlog){
+    return <Spinner />
+  }
   return (
     <div className="flex flex-col items-center mt-28">
       <Helmet>
@@ -101,16 +110,15 @@ const BlogDetails = () => {
               Go back
             </span>
             {blog?.autherId === auth.currentUser.uid && (
-              <div className="flex gap-2 text-xl cursor-pointer">
+              <div className="flex gap-2 text-xl cursor-pointer items-baseline">
                 <AlertButton
                   className="p-0 h-auto"
-                  description="This action cannot be undone. This will permanently delete your blog and remove your blog from our servers."
-                >
-                  <MdDelete className="text-xl text-red-500" onClick={deleteComment} />
+                  description="This action cannot be undone. This will permanently delete your blog and remove your blog from our servers.">
+                  <MdDelete className="text-xl text-red-500" onClick={deleteBlog} />
                 </AlertButton>
                 <FaEdit
                   className="text-green-600"
-                  onClick={() => history(`/blog/${params.blogId}/edit`)}
+                  onClick={() => history(`/blog/${params.blogid}/edit`)}
                 />
               </div>
             )}
@@ -133,13 +141,7 @@ const BlogDetails = () => {
 
             </div>
             <article className="prose-neutral prose-lg lg:prose-xl text-gray-300">
-              {/* {parse("<h1>Hello Hi <b>Shayan</b> new to <i>React</i></h1>")} */}
-              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloremque obcaecati ipsam eveniet cum repudiandae rerum in iure, modi dolore fuga, mollitia distinctio fugit! Ad, quidem illum! Aspernatur voluptas minima vitae?
-                Illo maxime porro nulla minima ipsum natus ut dolor eveniet accusantium? Praesentium tempore illo ad unde nam cupiditate sint error, aperiam odio nihil molestiae porro aut alias. Obcaecati, harum odit?
-                Accusantium perspiciatis non ipsam odit tenetur incidunt, velit dolores iure voluptates, nam, unde blanditiis sit? Quaerat cupiditate iste ab praesentium, quasi excepturi ad molestiae numquam? Doloremque ad facere velit repellendus!
-                Suscipit iste facere possimus inventore, cumque ratione adipisci consectetur quasi ipsam provident harum atque. Dolorem nihil, neque, labore repudiandae aliquid ab, et nisi libero dicta necessitatibus praesentium placeat rem ex?
-                Ipsa sint earum, quasi doloribus commodi id cumque labore facilis delectus explicabo dolore maiores recusandae, voluptates quam accusamus magni ipsam alias cum tempore? Quo, ipsa molestiae eos ullam ipsam quasi.
-                Sit beatae ducimus fuga eaque possimus qui quae nisi error, doloribus quisquam itaque excepturi ea? Cum totam soluta quibusdam veritatis possimus suscipit, quidem perspiciatis laboriosam aperiam a neque non ipsa!</p>
+              {parse(blog.Blog)}
             </article>
             <div className="space-y-4">
               <div

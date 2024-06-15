@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { AddComments } from "../../services/blogs/ApiGetBlog"
+import { AddComments } from "../../../../services/blogs/ApiGetBlog"
 import toast from "react-hot-toast"
 
 function useAddComments() {

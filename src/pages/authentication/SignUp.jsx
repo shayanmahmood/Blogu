@@ -10,8 +10,9 @@ function SignUp() {
     const { SignUp, isLoading } = useSignUp()
     const inputStyle = "h-12 text-md";
 
-    function onSubmit({ email, password, firstname }) {
-        SignUp({ email, password, firstname }, {
+
+    function onSubmit({ email, password, firstname, lastname }) {
+        SignUp({ email, password, firstname, lastname }, {
             onSettled: () => reset()
         })
     }

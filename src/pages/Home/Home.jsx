@@ -1,8 +1,6 @@
-// import BlogsCard from "../../components/ui/BlogsCard";
 import useGetBlogs from "../../features/blog/hook/useGetBlogs";
 import Footer from "../../components/Footer";
 import BlogsCard from "../../components/ui/BlogCard";
-// import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 
 
@@ -24,10 +22,10 @@ const Home = () => {
         </p>
       </div>
       <div className="space-y-10 w-[80%] md:w-[50rem] xl:w-[80rem]" id="blogs">
-        <h1 className="text-3xl sm:text-4xl">Latest Blogs</h1>
+        <h1 className="text-3xl sm:text-4xl">Popular LO'res</h1>
 
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 justify-items-center mt-20">
+      <div href='#blogs' className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 justify-items-center mt-20">
         {isLoading ? (
           Array.from({ length: 9 }).map((items, index) => {
             return (
@@ -41,8 +39,8 @@ const Home = () => {
                   <div className="flex gap-2">
                     <Skeleton className="size-10 rounded-full" />
                     <div className="w-3/5 space-y-2">
-                      <Skeleton className="w-3/5 h-3 " />
-                      <Skeleton className="w-2/5 h-3   " />
+                      <Skeleton className="w-3/5 h-3" />
+                      <Skeleton className="w-2/5 h-3" />
                     </div>
                   </div>
                 </div>

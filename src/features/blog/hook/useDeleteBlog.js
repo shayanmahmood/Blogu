@@ -1,16 +1,18 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { deleteComment as deleteCommentApi } from "../../services/blogs/ApiGetBlog"
 import toast from "react-hot-toast"
+import { deleteBlog as deleteBlogAPi } from "../../../services/blogs/ApiGetBlog"
+import { useNavigate } from "react-router-dom"
 
-function useDeleteComments() {
+function useDeleteBlog() {
     const queryClient = useQueryClient()
-    const { isLoading, mutate: deleteComment } = useMutation({
+    const navigate = useNavigate()
+    const { isLoading, mutate: deleteBlog } = useMutation({
 
-        mutationFn: deleteCommentApi,
+        mutationFn: deleteBlogAPi,
         onSuccess: () => {
-            toast('Comment Successfully Deleted',
+            toast('Blog Successfully Deleted',
                 {
-                    icon: '✨',
+                    icon: '🧨',
                     style: {
                         borderRadius: '10px',
                         background: '#333',
@@ -19,14 +21,15 @@ function useDeleteComments() {
                 }
             )
             queryClient.invalidateQueries(['blog'])
+            navigate('/home#blogs')
         },
         onError: (error) => {
             console.log(error)
-            toast.error("Comment Cannot be Deleted")
+            toast.error("Blog Cannot be Deleted")
         }
     })
 
-    return { isLoading, deleteComment }
+    return { isLoading, deleteBlog }
 }
 
-export default useDeleteComments
+export default useDeleteBlog
